@@ -8,7 +8,7 @@ all: ${BIN}
 ${BIN}: ${OBJS}
 	${CC} -o $@ ${OBJS}
 
-ghost.o: src/ghost.c ../common/crc32.h include/ghost.h include/gm.h include/utf.h include/lookup.h
+ghost.o: src/ghost.c ../common/common.h ../common/crc32.h include/ghost.h include/gm.h include/utf.h include/lookup.h
 	${CC} ${CFLAGS} -c $<
 gm.o: src/gm.c include/ghost.h include/gm.h include/target.h
 	${CC} ${CFLAGS} -c $<

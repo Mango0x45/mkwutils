@@ -14,6 +14,7 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "common.h"
 #include "crc32.h"
 #include "rrc.h"
 
@@ -85,8 +86,8 @@ set_region(uint8_t *rksys, const char *region)
 		die("Invalid region");
 
 	rksys[REGION_BYTE] = r->id;
-	uint32_t crc = crc32(rksys, CRC_OFFSET);
-	memcpy(rksys + CRC_OFFSET, &crc, sizeof(uint32_t));
+	uint32_t crc = crc32(rksys, RKSYS_CRC32_OFFSET);
+	memcpy(rksys + RKSYS_CRC32_OFFSET, &crc, sizeof(uint32_t));
 }
 
 int

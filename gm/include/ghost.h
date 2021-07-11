@@ -5,8 +5,6 @@
 
 #define MII_NAME_LEN 10
 
-#define CRC_OFFSET 0x027FFC
-
 #define GHOST_COUNT 64
 #define GHOST_MAGIC "RKGD"
 #define GHOST_SIZE  0x2800

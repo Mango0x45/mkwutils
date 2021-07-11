@@ -3,8 +3,6 @@
 
 #include <stddef.h>
 
-#define CRC_OFFSET 0x027FFC
-
 struct Region {
 	const char *name;
 	int id;

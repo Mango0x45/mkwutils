@@ -7,6 +7,7 @@
 #include <stdbool.h>
 #include <unistd.h>
 
+#include "common.h"
 #include "crc32.h"
 #include "ghost.h"
 #include "gm.h"
@@ -127,8 +128,8 @@ import_ghost(const unsigned int license)
 	memcpy(fptr, &ghost_flags, sizeof(uint32_t));
 
 	/* Finally, recalculate the CRC32 hash */
-	uint32_t crc = crc32(rksys, CRC_OFFSET);
-	memcpy(rksys + CRC_OFFSET, &crc, sizeof(uint32_t));
+	uint32_t crc = crc32(rksys, RKSYS_CRC32_OFFSET);
+	memcpy(rksys + RKSYS_CRC32_OFFSET, &crc, sizeof(uint32_t));
 }
 
 static void

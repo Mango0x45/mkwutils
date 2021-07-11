@@ -12,7 +12,7 @@ all: ${BIN}
 ${BIN}: ${OBJS}
 	${CC} -o $@ ${OBJS}
 
-rrc.o: rrc.c rrc.h ../common/crc32.h
+rrc.o: rrc.c rrc.h ../common/common.h ../common/crc32.h
 regions.o: regions.c rrc.h
 regions.c: regions.gperf rrc.h
 
