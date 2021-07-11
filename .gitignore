@@ -1,5 +1,9 @@
 saves/
 smg-man/
 
+gm/gm
+rrc/rrc
+
+*.o
 *.dat
 *.rkg
