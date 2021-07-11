@@ -1,0 +1,40 @@
+.TH "DB2RKG" "1" "2021-07-02" "1.0" "General Commands Manual"
+.SH NAME
+db2rkg — get ghost links from database urls
+.SH SYNOPSIS
+db2rkg \fB[\fR\fIfile\fR|\fIurl \fR.\|.\|.\fB]\fR
+.SH DESCRIPTION
+The \fBdb2rkg\fR(1) utility takes either a \fIURL\fR or \fIfile\fR of URLs as arguments, or alternatively
+reads URLs from standard input. These URLs must be urls to ghost pages on various Mario Kart Wii
+ghost databases. After reading the urls, \fBdb2rkg\fR(1) will as the name implies, give you a link to
+the RKG file directly. This new URL can then be passed to a utility such as \fBcurl\fR(1) to download
+the ghost file(s).
+.PP
+The following ghost databases are supported:
+.PP
+.RS 4
+chadsoft.co.uk
+.br
+ninrankings.org
+.br
+maschell.de
+.RS -4
+.PP
+If reading URLs from a file, each link must be on its own line as such:
+.PP
+.RS 4
+.EX
+https://www.chadsoft.co.uk/time\-trials/rkgd/2C/C8/270AA3683AF50A6462C57B6F56CEA1F3667C.html
+https://ninrankings.org/ghostdatabase/ghostviewer.php?id=3432
+.EE
+.RS -4
+.PP
+If a URL does not match any of the supported databases, then nothing is printed to standard output.
+.SH EXAMPLES
+\fBdb2rkg\fR \fIURL\fR | \fBxargs curl \-o\fR \- | \fBgm \-i\fR \(aq\fId01\fR\(aq \fB\-l\fR 1 \fIrksys.dat\fR
+.RS 4
+Get the RKG link of the ghost that \fIURL\fR refers to, download the ghost, and import it into a
+savefile using the \fBgm\fR(1) utility.
+.RS -4
+.SH SEE ALSO
+\fBcurl\fR(1)

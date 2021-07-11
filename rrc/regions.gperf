@@ -1,0 +1,36 @@
+%{
+#include "rrc.h"
+%}
+
+%7bit
+%readonly-tables
+%includes
+%ignore-case
+%struct-type
+
+struct Region;
+%%
+JP,		0
+JAP,		0
+Japan,		0
+AM,		16
+US,		16
+USA,		16
+America,	16
+Americas,	16
+EU,		32
+EUR,		32
+Europe,		32
+AUS,		48
+OCE,		48
+Australia,	48
+Oceania,	48
+TAI,		64
+Taiwan,		64
+SK,		80
+KOR,		80
+Korea,		80
+South Korea,	80
+CN,		96
+CHN,		96
+China,		96

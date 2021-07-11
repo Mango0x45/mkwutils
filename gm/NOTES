@@ -1,0 +1,85 @@
+Notes taken before the creation of the tool. All data was taken from Tockdom.
+
+rksys.dat documentation: http://wiki.tockdom.com/wiki/Rksys.dat
+RKG documentation: http://wiki.tockdom.com/wiki/RKG
+
+FILE FORMAT
+===========
+ - All save files have a fixed size of 0x2BBFFF bytes.
+ - The first 4 bytes are a magic value that translates to "RKSD" in ascii.
+
+LICENSES
+========
+ - The 4 licenses begins at the following offsets:
+	License 1 -> 0x00008
+	License 2 -> 0x08CC8
+	License 3 -> 0x11988
+	License 4 -> 0x1A648
+ - The first 4 bytes are a magic value that translates to "RKPD" in ascii.
+ - The next 32 bits (offsets 0x04 to 0x08) are flags representing if a player has a ghost on the
+   corresponding track.
+ - The next 32 bits (offsets 0x08 to 0x0C) are flags representing if a player has a downloaded ghost
+   on the corresponding track.
+
+GHOSTS
+======
+ - The first 4 bytes are a magic value that translates into "RKGD" in ascii
+ - The ghost files begin at the following offsets:
+	License 1 -> 0x028000
+	License 2 -> 0x0CD000
+	License 3 -> 0x172000
+	License 4 -> 0x217000
+ - Each ghost file has a maximum size of 0x2800 bytes.
+ - The ghosts for nitro tracks are stored in order, retro tracks follow this order:
+	16 rSGB
+	17 rGV2
+	18 rMC3
+	19 rBC3
+	20 rSL
+	21 rMR
+	22 rDKJP
+	23 rBC
+	24 rPB
+	25 rMC
+	26 rWS
+	27 rDKM
+	28 rYF
+	29 rDH
+	30 rPG
+	31 rDS
+
+TRACKS
+======
+ - Each track has a corresponding ID that is embedded in a ghost file, they are in this order:
+	Mario Circuit		0x00
+	Moo Moo Meadows		0x01
+	Mushroom Gorge		0x02
+	Grumble Volcano		0x03
+	Toad's Factory		0x04
+	Coconut Mall		0x05
+	DK's Snowboard Cross	0x06
+	Wario's Gold Mine	0x07
+	Luigi Circuit		0x08
+	Daisy Circuit		0x09
+	Moonview Highway	0x0A
+	Maple Treeway		0x0B
+	Bowser's Castle		0x0C
+	Rainbow Road		0x0D
+	Dry Dry Ruins		0x0E
+	Koopa Cape		0x0F
+	GCN Peach Beach		0x10
+	GCN Mario Circuit	0x11
+	GCN Waluigi Stadium	0x12
+	GCN DK Mountain		0x13
+	DS Yoshi Falls		0x14
+	DS Desert Hills		0x15
+	DS Peach Gardens	0x16
+	DS Delfino Square	0x17
+	SNES Mario Circuit 3	0x18
+	SNES Ghost Valley 2	0x19
+	N64 Mario Raceway	0x1A
+	N64 Sherbet Land	0x1B
+	N64 Bowser's Castle	0x1C
+	N64 DK's Jungle Parkway	0x1D
+	GBA Bowser Castle 3	0x1E
+	GBA Shy Guy Beach	0x1F
