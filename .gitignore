@@ -4,6 +4,8 @@ smg-man/
 gm/gm
 rrc/rrc
 
+rrc/regions.c
+
 *.o
 *.dat
 *.rkg
