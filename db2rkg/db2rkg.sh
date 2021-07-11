@@ -3,12 +3,12 @@
 parse () {
 	sed -n '
 	/\(ninrankings\|maschell\)/ {
-		s|\(.*\)/ghostviewer\(.*\)|\1/download\2|
+		s/ghostviewer/download/
 		p
 	}
 
 	/chadsoft/ {
-		s/\(.*\)\.html/\1.rkg/
+		s/\.html/.rkg/
 		p
 	}
 	' <"$FILE"
