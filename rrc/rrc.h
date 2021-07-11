@@ -1,5 +1,5 @@
-#ifndef __SRS_H_
-#define __SRS_H_
+#ifndef __RRC_H_
+#define __RRC_H_
 
 #include <stddef.h>
 
@@ -12,4 +12,4 @@ struct Region {
 
 const struct Region *in_word_set(register const char *str, register size_t len);
 
-#endif /* !__SRS_H_ */
+#endif /* !__RRC_H_ */
