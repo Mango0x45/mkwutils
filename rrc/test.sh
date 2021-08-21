@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
-# NO OUTPUT = SUCCESS
-
 trap "rm *.dat" EXIT
 
 [ -f ./rrc ] || make
