@@ -10,5 +10,6 @@ rrc/regions.c
 compile_commands.json
 
 *.o
+*.gz
 *.dat
 *.rkg
