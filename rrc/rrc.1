@@ -1,0 +1,78 @@
+.Dd $Mdocdate: 21 August 2021$
+.Dt RRC 1 URM
+.Os mkwutils
+.Sh NAME
+.Nm rrc
+.Nd get and set the region of a Mario Kart Wii save file
+.Sh SYNOPSIS
+.Nm
+.Op Fl r Ar region
+.Ar saves ...
+.Sh DESCRIPTION
+.Nm
+is a utility to get and set the region of Mario Kart Wii save files which can be useful in a variety
+of scenarios such as when importing someone elses save file into
+.Xr dolphin-emu 1
+for recording.
+The default behavior is to print the region of every save file specified on its own line.
+If you would like to set the region of the specified save
+.Ns file Ns Pq s
+you must specify the
+.Fl r
+flag and a
+.Ar region .
+For a list of valid regions, see
+.Sx REGIONS .
+.Sh OPTIONS
+.Bl -tag -width Ds
+.It Fl r Ar region
+Set the region of all the given save
+.Ns file Ns Pq s
+to
+.Ar region .
+.El
+.Sh REGIONS
+The following is a table of strings that can be passed to
+.Nm
+as a region and the region that they correspond to.
+All regions can be given case-insensitively.
+.TS
+box center;
+l | l.
+JP	Japan
+JAP
+Japan
+_
+US	Americas
+USA
+America
+Americas
+_
+EU	Europe
+EUR
+Europe
+_
+AU	Oceania
+AUS
+OCE
+Australia
+Oceania
+_
+ROC	Taiwan
+TAI
+Taiwan
+_
+SK	South Korea
+KOR
+Korea
+South Korea
+_
+CN	China
+CHN
+PRC
+China
+.TE
+.Sh EXIT STATUS
+.Ex -std
+.Sh SEE ALSO
+.Xr dolphin-emu 1
