@@ -14,6 +14,8 @@ parse () {
 	' <"$FILE"
 }
 
+set -e
+
 if [ "$#" -eq 0 ]; then
 	parse /dev/stdin
 else
