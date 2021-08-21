@@ -28,7 +28,7 @@ git status --porcelain | while IFS= read -r FILE; do
 		FILE="$(echo "$FILE" | awk '{ print $2 }')"
 		case "${FILE##*.}" in
 		[1-7])
-			sed -i '/^\.Dd/s/.*/.Dd $Mdocdate: '"$MDOCDATE"'$/' "$FILE"
+			sed -i '/^\.Dd/s/.*/.Dd $Mdocdate: '"$MDOCDATE"' $/' "$FILE"
 			git add "$FILE"
 			;;
 		esac
