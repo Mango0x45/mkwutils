@@ -2,7 +2,7 @@
 .SUFFIXES:
 CC	= cc
 CFLAGS	= -O3 -std=c11 -pipe -pedantic -Wall -Wextra -Wmissing-prototypes -Wstrict-prototypes \
-		-Wimplicit-fallthrough -D BYTE_ORDER=$$(../common/check-endianness.sh) -I include \
+		-Wimplicit-fallthrough -D BYTE_ORDER=$$(../common/check-endianness.sh) -I include/ \
 		-I ../common/
 
 PREFIX	= /usr/local
