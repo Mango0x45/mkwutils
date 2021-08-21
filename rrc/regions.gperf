@@ -21,10 +21,12 @@ Americas,	16
 EU,		32
 EUR,		32
 Europe,		32
+AU,		48
 AUS,		48
 OCE,		48
 Australia,	48
 Oceania,	48
+ROC,		64
 TAI,		64
 Taiwan,		64
 SK,		80
@@ -33,4 +35,5 @@ Korea,		80
 South Korea,	80
 CN,		96
 CHN,		96
+PRC,		96
 China,		96
