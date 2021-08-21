@@ -6,6 +6,8 @@ rrc/rrc
 
 rrc/regions.c
 
+compile_commands.json
+
 *.o
 *.dat
 *.rkg
