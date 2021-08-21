@@ -30,7 +30,7 @@ swap32(uint32_t x)
 #endif
 }
 
-static const uint32_t Crc32Lookup[16][256] = {
+static const uint32_t crc32_lookup[16][256] = {
         {
                 0x00000000, 0x77073096, 0xEE0E612C, 0x990951BA, 0x076DC419, 0x706AF48F, 0xE963A535,
                 0x9E6495A3, 0x0EDB8832, 0x79DCB8A4, 0xE0D5E91E, 0x97D2D988, 0x09B64C2B, 0x7EB17CBD,
@@ -659,60 +659,60 @@ static const uint32_t Crc32Lookup[16][256] = {
 uint32_t
 crc32(const void *data, size_t length)
 {
-	const size_t prefetchAhead = 256;
+	const size_t prefetch_ahead = 256;
 
 	uint32_t crc = ~0;
 	const uint32_t *current = (const uint32_t *) data;
 
-	const size_t Unroll = 4;
-	const size_t BytesAtOnce = 16 * Unroll;
-	while (length >= BytesAtOnce + prefetchAhead) {
-		PREFETCH(((const char *) current) + prefetchAhead);
+	const size_t unroll = 4;
+	const size_t bytes_at_once = 16 * unroll;
+	while (length >= bytes_at_once + prefetch_ahead) {
+		PREFETCH(((const char *) current) + prefetch_ahead);
 
 #pragma unroll
-		for (size_t unrolling = 0; unrolling < Unroll; unrolling++) {
+		for (size_t unrolling = 0; unrolling < unroll; unrolling++) {
 #if BYTE_ORDER == BIG_ENDIAN
 			uint32_t one = *current++ ^ swap32(crc);
 			uint32_t two = *current++;
 			uint32_t three = *current++;
 			uint32_t four = *current++;
-			crc = Crc32Lookup[0][four & 0xFF] ^ Crc32Lookup[1][(four >> 8) & 0xFF]
-			      ^ Crc32Lookup[2][(four >> 16) & 0xFF]
-			      ^ Crc32Lookup[3][(four >> 24) & 0xFF] ^ Crc32Lookup[4][three & 0xFF]
-			      ^ Crc32Lookup[5][(three >> 8) & 0xFF]
-			      ^ Crc32Lookup[6][(three >> 16) & 0xFF]
-			      ^ Crc32Lookup[7][(three >> 24) & 0xFF] ^ Crc32Lookup[8][two & 0xFF]
-			      ^ Crc32Lookup[9][(two >> 8) & 0xFF]
-			      ^ Crc32Lookup[10][(two >> 16) & 0xFF]
-			      ^ Crc32Lookup[11][(two >> 24) & 0xFF] ^ Crc32Lookup[12][one & 0xFF]
-			      ^ Crc32Lookup[13][(one >> 8) & 0xFF]
-			      ^ Crc32Lookup[14][(one >> 16) & 0xFF]
-			      ^ Crc32Lookup[15][(one >> 24) & 0xFF];
+			crc = crc32_lookup[0][four & 0xFF] ^ crc32_lookup[1][(four >> 8) & 0xFF]
+			      ^ crc32_lookup[2][(four >> 16) & 0xFF]
+			      ^ crc32_lookup[3][(four >> 24) & 0xFF] ^ crc32_lookup[4][three & 0xFF]
+			      ^ crc32_lookup[5][(three >> 8) & 0xFF]
+			      ^ crc32_lookup[6][(three >> 16) & 0xFF]
+			      ^ crc32_lookup[7][(three >> 24) & 0xFF] ^ crc32_lookup[8][two & 0xFF]
+			      ^ crc32_lookup[9][(two >> 8) & 0xFF]
+			      ^ crc32_lookup[10][(two >> 16) & 0xFF]
+			      ^ crc32_lookup[11][(two >> 24) & 0xFF] ^ crc32_lookup[12][one & 0xFF]
+			      ^ crc32_lookup[13][(one >> 8) & 0xFF]
+			      ^ crc32_lookup[14][(one >> 16) & 0xFF]
+			      ^ crc32_lookup[15][(one >> 24) & 0xFF];
 #else
 			uint32_t one = *current++ ^ crc;
 			uint32_t two = *current++;
 			uint32_t three = *current++;
 			uint32_t four = *current++;
-			crc = Crc32Lookup[0][(four >> 24) & 0xFF]
-			      ^ Crc32Lookup[1][(four >> 16) & 0xFF]
-			      ^ Crc32Lookup[2][(four >> 8) & 0xFF] ^ Crc32Lookup[3][four & 0xFF]
-			      ^ Crc32Lookup[4][(three >> 24) & 0xFF]
-			      ^ Crc32Lookup[5][(three >> 16) & 0xFF]
-			      ^ Crc32Lookup[6][(three >> 8) & 0xFF] ^ Crc32Lookup[7][three & 0xFF]
-			      ^ Crc32Lookup[8][(two >> 24) & 0xFF]
-			      ^ Crc32Lookup[9][(two >> 16) & 0xFF]
-			      ^ Crc32Lookup[10][(two >> 8) & 0xFF] ^ Crc32Lookup[11][two & 0xFF]
-			      ^ Crc32Lookup[12][(one >> 24) & 0xFF]
-			      ^ Crc32Lookup[13][(one >> 16) & 0xFF]
-			      ^ Crc32Lookup[14][(one >> 8) & 0xFF] ^ Crc32Lookup[15][one & 0xFF];
+			crc = crc32_lookup[0][(four >> 24) & 0xFF]
+			      ^ crc32_lookup[1][(four >> 16) & 0xFF]
+			      ^ crc32_lookup[2][(four >> 8) & 0xFF] ^ crc32_lookup[3][four & 0xFF]
+			      ^ crc32_lookup[4][(three >> 24) & 0xFF]
+			      ^ crc32_lookup[5][(three >> 16) & 0xFF]
+			      ^ crc32_lookup[6][(three >> 8) & 0xFF] ^ crc32_lookup[7][three & 0xFF]
+			      ^ crc32_lookup[8][(two >> 24) & 0xFF]
+			      ^ crc32_lookup[9][(two >> 16) & 0xFF]
+			      ^ crc32_lookup[10][(two >> 8) & 0xFF] ^ crc32_lookup[11][two & 0xFF]
+			      ^ crc32_lookup[12][(one >> 24) & 0xFF]
+			      ^ crc32_lookup[13][(one >> 16) & 0xFF]
+			      ^ crc32_lookup[14][(one >> 8) & 0xFF] ^ crc32_lookup[15][one & 0xFF];
 #endif
 		}
-		length -= BytesAtOnce;
+		length -= bytes_at_once;
 	}
-	const uint8_t *currentChar = (const uint8_t *) current;
+	const uint8_t *current_char = (const uint8_t *) current;
 	/* Remaining 1 to 63 bytes (standard algorithm) */
 	while (length-- != 0)
-		crc = (crc >> 8) ^ Crc32Lookup[0][(crc & 0xFF) ^ *currentChar++];
+		crc = (crc >> 8) ^ crc32_lookup[0][(crc & 0xFF) ^ *current_char++];
 #if BYTE_ORDER == LITTLE_ENDIAN
 	return swap32(~crc);
 #else
@@ -720,4 +720,4 @@ crc32(const void *data, size_t length)
 #endif
 }
 
-#endif /* __CRC32_H_ */
+#endif /* !__CRC32_H_ */
