@@ -1,40 +1,44 @@
-.TH "DB2RKG" "1" "2021-07-02" "1.0" "General Commands Manual"
-.SH NAME
-db2rkg — get ghost links from database urls
-.SH SYNOPSIS
-db2rkg \fB[\fR\fIfile\fR|\fIurl \fR.\|.\|.\fB]\fR
-.SH DESCRIPTION
-The \fBdb2rkg\fR(1) utility takes either a \fIURL\fR or \fIfile\fR of URLs as arguments, or alternatively
-reads URLs from standard input. These URLs must be urls to ghost pages on various Mario Kart Wii
-ghost databases. After reading the urls, \fBdb2rkg\fR(1) will as the name implies, give you a link to
-the RKG file directly. This new URL can then be passed to a utility such as \fBcurl\fR(1) to download
-the ghost file(s).
-.PP
-The following ghost databases are supported:
-.PP
-.RS 4
+.Dd $Mdocdate: 21 August 2021$
+.Dt DB2RKG 1 URM
+.Os mkwutils
+.Sh NAME
+.Nm db2rkg
+.Nd get ghost links from database urls
+.Sh SYNOPSIS
+.Nm
+.Op Ar
+.Op Ar url ...
+.Sh DESCRIPTION
+.Nm
+is a utility to convert URLs to the pages of Mario Kart Wii ghosts to URLs to the RKG files
+directly.
+A URL can be either be specified as a command line argument or a file can be provided as an
+argument.
+If a file is given then it must contain a list of URLs, each on its own line.
+Like other unix utilities the special filename
+.Sq -
+can be provided to signify reading from standard input.
+.Pp
+As of the current version, the following ghost databases are supported:
+.Bl -bullet -compact
+.It
 chadsoft.co.uk
-.br
+.It
 ninrankings.org
-.br
+.It
 maschell.de
-.RS -4
-.PP
-If reading URLs from a file, each link must be on its own line as such:
-.PP
-.RS 4
-.EX
-https://www.chadsoft.co.uk/time\-trials/rkgd/2C/C8/270AA3683AF50A6462C57B6F56CEA1F3667C.html
-https://ninrankings.org/ghostdatabase/ghostviewer.php?id=3432
-.EE
-.RS -4
-.PP
-If a URL does not match any of the supported databases, then nothing is printed to standard output.
-.SH EXAMPLES
-\fBdb2rkg\fR \fIURL\fR | \fBxargs curl \-o\fR \- | \fBgm \-i\fR \(aq\fId01\fR\(aq \fB\-l\fR 1 \fIrksys.dat\fR
-.RS 4
-Get the RKG link of the ghost that \fIURL\fR refers to, download the ghost, and import it into a
-savefile using the \fBgm\fR(1) utility.
-.RS -4
-.SH SEE ALSO
-\fBcurl\fR(1)
+.El
+.Pp
+If a URL does not match any of the supported databases then nothing is printed to standard output.
+.Sh EXAMPLES
+Get the ghost url and then use the
+.Xr wget 1
+utility to download the ghost file.
+.Pp
+.Dl $ db2rkg "https://ninrankings.org/ghostdatabase/ghostviewer.php?id=3997" | xargs wget
+.Sh EXIT STATUS
+.Ex -std
+.Sh SEE ALSO
+.Xr gm 1 ,
+.Xr rrc 1 ,
+.Xr wget 1
