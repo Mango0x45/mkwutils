@@ -7,7 +7,6 @@
 #define NUM_LICENSES 4
 
 #define RKSYS_MAGIC "RKSD"
-#define RKSYS_SIZE  0x2BC000
 
 extern uint8_t *rksys;
 extern unsigned int flags;
@@ -20,6 +19,4 @@ enum program_flags {
 	FLAG_SPLITS = 0x10
 };
 
-noreturn void die(const char *s);
-
-#endif /* __GM_H_ */
+#endif /* !__GM_H_ */

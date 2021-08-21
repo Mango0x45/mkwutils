@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "common.h"
 #include "ghost.h"
 #include "gm.h"
 #include "utf.h"
@@ -33,8 +34,10 @@ conv_init(void)
 {
 	iconv_t cd = iconv_open("UTF-8", "UTF-16BE");
 	if (cd == (iconv_t) -1) {
-		if (errno == EINVAL)
+		if (errno == EINVAL) {
+			errno = 0;
 			die("Conversion from UTF-16BE to UTF-8 is not supported");
+		}
 		else
 			die("iconv_open");
 	}

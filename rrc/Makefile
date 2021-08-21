@@ -3,7 +3,7 @@ include ../base.mk
 
 BIN	= rrc
 MAN	= rrc.1
-OBJS	= rrc.o regions.o
+OBJS	= ../common/common.o ../common/crc32.o rrc.o regions.o
 EXTRAS	= regions.c
 
 # gperf(1) is weird
@@ -13,6 +13,10 @@ all: ${BIN}
 ${BIN}: ${OBJS}
 	${CC} -o $@ ${OBJS}
 
+../common/common.o: ../common/common.c
+	${CC} ${CFLAGS} -c $< -o $@
+../common/crc32.o: ../common/crc32.c
+	${CC} ${CFLAGS} -c $< -o $@
 rrc.o: rrc.c rrc.h ../common/common.h ../common/crc32.h
 regions.o: regions.c rrc.h
 regions.c: regions.gperf rrc.h

@@ -4,7 +4,6 @@
 #include <sys/mman.h>
 #include <sys/stat.h>
 
-#include <errno.h>
 #include <fcntl.h>
 #include <locale.h>
 #include <stdint.h>
@@ -14,11 +13,12 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "common.h"
 #include "ghost.h"
 #include "gm.h"
 #include "target.h"
 
-const char *argv0;
+extern const char *argv0;
 
 uint8_t *rksys;
 unsigned int flags = 0;
@@ -28,54 +28,6 @@ usage(void)
 {
 	fprintf(stderr, "%s [-l license number] [-E|-e ghost id] [-i ghost id] rksys.dat\n", argv0);
 	exit(EXIT_FAILURE);
-}
-
-noreturn void
-die(const char *s)
-{
-	fprintf(stderr, "gm: %s", s);
-	if (errno)
-		fprintf(stderr, ": %s", strerror(errno));
-
-	write(STDERR_FILENO, "\n", 1);
-	exit(EXIT_FAILURE);
-}
-
-static void
-rksys_read(const char *file)
-{
-	/*
-	 * This will cause the program to crash if we try to write any data outside of specific
-	 * mods that require it (such as importing ghosts). This ensures that we dont modify the
-	 * rksys by accident in what should be a read-only operation.
-	 */
-	int open_flags, prot = PROT_READ, mmap_flags;
-	if (flags & FLAG_IMPORT) {
-		prot |= PROT_WRITE;
-		open_flags = O_RDWR;
-		mmap_flags = MAP_SHARED;
-	}
-	else {
-		open_flags = O_RDONLY;
-		mmap_flags = MAP_PRIVATE;
-	}
-
-	int fd = open(file, open_flags);
-	if (fd == -1)
-		die("open");
-
-	struct stat sb;
-	(void) fstat(fd, &sb);
-	if (sb.st_size != RKSYS_SIZE)
-		die("Invalid rksys (invalid file size)");
-
-	rksys = mmap(NULL, RKSYS_SIZE, prot, mmap_flags, fd, 0);
-	if (rksys == MAP_FAILED)
-		die("mmap");
-	(void) close(fd);
-
-	if (memcmp(rksys, RKSYS_MAGIC, 4) != 0)
-		die("Invalid rksys.dat (incorrect magic value)");
 }
 
 int
@@ -130,7 +82,7 @@ main(int argc, char **argv)
 	if (!argc)
 		usage();
 
-	rksys_read(*argv);
+	load_rksys(*argv, flags & FLAG_IMPORT);
 
 	if (!license) {
 		for (unsigned int i = 1; i <= NUM_LICENSES; i++) {
