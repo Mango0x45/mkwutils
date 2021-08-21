@@ -2,6 +2,7 @@
 include ../base.mk
 
 BIN	= rrc
+MAN	= rrc.1
 OBJS	= rrc.o regions.o
 EXTRAS	= regions.c
 
@@ -16,7 +17,7 @@ rrc.o: rrc.c rrc.h ../common/common.h ../common/crc32.h
 regions.o: regions.c rrc.h
 regions.c: regions.gperf rrc.h
 
-install:
+install: install-man
 	mkdir -p ${PREFIX}/bin
 	cp ${BIN} ${PREFIX}/bin
 
